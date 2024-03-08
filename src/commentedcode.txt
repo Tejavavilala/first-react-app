@@ -1,0 +1,114 @@
+import "./App.css";
+/* import { Heading } from "./components/Heading";
+import { Oscar } from "./components/Oscar";
+import { Person } from "./components/Person";
+import { Status } from "./components/Status";
+import { Button } from "./components/button";
+import { Greeting } from "./components/greeting";
+import { PersonList } from "./components/personList";
+import { Input } from "./components/Input";
+import { Container } from "./components/Container";
+import { User } from "./components/useState/User";
+import { Loggedln } from "./components/useState/LoggedIn";
+import CounterWithPayload from "./components/useState/Counter"; */
+import pokemon from "./components/pokemon.json";
+import React from "react";
+import PropTypes from "prop-types";
+
+function App() {
+  const [filter, filterSet] = React.useState("");
+  /* const nameList = [
+    {
+      first: "Umanandh",
+      last: "Enugollu",
+    },
+    {
+      first: "Teja",
+      last: "Vavilala",
+    },
+    {
+      first: "Vyshnavi",
+      last: "Balguri",
+    },
+    {
+      first: "Dilip",
+      last: "Simma",
+    },
+  ];
+
+  const personName = {
+    first: "Teja",
+    last: "Vavilala",
+  }; */
+  const PokemonRow = ({ item }: { item: any }) => (
+    <tr>
+      <td>{item.name.english}</td>
+      <td>{item.type.join(", ")}</td>
+    </tr>
+  );
+
+  PokemonRow.propTypes = {
+    item: PropTypes.shape({
+      name: PropTypes.shape({
+        english: PropTypes.string,
+      }),
+      type: PropTypes.arrayOf(PropTypes.string),
+    }),
+  };
+  return (
+    /*    <div className="App"> */
+
+    <div style={{ margin: "auto", width: 800, paddingTop: "1rem" }}>
+      <h1 className="App">Pokemon Search</h1>
+      
+      <input value={filter} onChange={(evt) => filterSet(evt.target.value)} />
+      {/*  <Greeting name="TejaVavilala" messagecount={50} isLoggedIn={true} />
+      <Person name={personName} />
+      <PersonList names={nameList} />
+      <Status status="loading" />
+      <Status status="success" /> */}
+      {/*  <Heading>PlaceHolder In Main</Heading> */}
+      {/*  <Oscar>
+        <Heading>Oscar goes to Teja</Heading>
+      </Oscar>
+      <Button
+        handleClick={(event, id) => {
+          console.log("Button Clicked", event, id);
+        }}
+      />
+      <br></br>
+      <Input value="" handleChange={(event) => console.log(event)} />
+      <Container styles={{ border: "5px solid black", padding: "1rem"}} />
+      <User/>
+      <Loggedln/>
+      <CounterWithPayload/> */}
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/*  {pokemon.slice(0, 10).map((item) => (
+            <tr>
+              <td>{item.name.english}</td>
+              <td>{item.type.join(",")}</td>
+            </tr>
+          ))} */}
+
+          {pokemon
+            .filter((item: any) =>
+              item.name.english.toLowerCase().includes(filter.toLowerCase())
+            )
+            .slice(0, 10)
+            .map((item) => (
+              <PokemonRow item={item} key={item.id} />
+            ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default App;
