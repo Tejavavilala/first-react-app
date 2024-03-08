@@ -42,6 +42,7 @@ const PokemonInfo = ({ name, base }: { name: any; base: any }) => (
         <tr key={key}>
           <td>{key}</td>
           <td>{base[key]}</td>
+          <td></td>
         </tr>
       ))}
     </table>
